@@ -2,7 +2,48 @@
   "ignorePaths": [
     ".pre-commit-config.yaml"
   ],
-  "baseBranches": ["master"],
+  "baseBranchPatterns": [
+    "master"
+  ],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/\\.tekton/.*\\.yaml$/"
+      ],
+      "matchStrings": [
+        "RedHatInsights/konflux-pipelines/raw/v(?<currentValue>[\\d.]+)"
+      ],
+      "depNameTemplate": "RedHatInsights/konflux-pipelines",
+      "datasourceTemplate": "github-releases"
+    }
+  ],
+  "packageRules": [
+    {
+      "matchPackageNames": [
+        "RedHatInsights/konflux-pipelines"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ],
+      "automerge": true
+    },
+    {
+      "description": "Disable all bundler dependency updates",
+      "matchManagers": [
+        "bundler"
+      ],
+      "enabled": false
+    },
+    {
+      "description": "Disable all ruby version updates",
+      "matchManagers": [
+        "ruby-version"
+      ],
+      "enabled": false
+    }
+  ],
   "tekton": {
     "enabled": true,
     "packageRules": [

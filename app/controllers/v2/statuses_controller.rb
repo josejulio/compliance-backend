@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module V1
+module V2
   # API for Compliance Status
   class StatusesController < ApplicationController
     skip_around_action :authenticate_user
